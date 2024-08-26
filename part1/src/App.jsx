@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+const StatisticLine = ({text, value}) => {
+  return (
+    <div>{text} {value}</div>
+  )
+}
+
 const Statistics = ({good, neutral, bad, all, calculateAverage, calculatePositive}) => {
   if (!all)  {
     return <p>No feedback given</p> 
@@ -7,13 +13,19 @@ const Statistics = ({good, neutral, bad, all, calculateAverage, calculatePositiv
 
   return (
     <>
-      <div>good {good}</div>
-      <div>neutral {neutral}</div>
-      <div>bad {bad}</div>
-      <div>all {all}</div>
-      <div>average {calculateAverage(good, bad)}</div>
-      <div>positive {calculatePositive(good)}</div>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <StatisticLine text="all" value={all} />
+      <StatisticLine text="average" value={calculateAverage(good, bad)} />
+      <StatisticLine text="positive" value={calculatePositive(good)} />
     </>
+  )
+}
+
+const Button = ({text, onClick}) => {
+  return (
+    <button onClick={onClick}>{text}</button>
   )
 }
 
@@ -50,12 +62,11 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={addGoodFeedback}>good</button>
-      <button onClick={addNeutralFeedback}>neutral</button>
-      <button onClick={addBadFeedback}>bad</button>
+      <Button text="good" onClick={addGoodFeedback} />
+      <Button text="neutral" onClick={addNeutralFeedback} />
+      <Button text="bad" onClick={addBadFeedback} />
 
       <h1>statistics</h1>
-
       <Statistics 
         good={good}
         neutral={neutral}
